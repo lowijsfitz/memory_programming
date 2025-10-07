@@ -18,11 +18,28 @@ class Memory {
 
         JButton startButton = new JButton("Start");
         startButton.setBounds(300, 350, 200, 100);
-        
+        startButton.addActionListener(e -> StartLevel(1));
         frame.add(startButton);
 
         frame.setVisible(true);
     }
+    void StartLevel (int level) {
+        JFrame frame = new JFrame("Memory");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 800);
+        frame.setLayout(null);
+
+        JLabel welcomeLabel = new JLabel("You are currently at level " + level);
+        welcomeLabel.setBounds(325, 50, 150, 50);
+        frame.add(welcomeLabel);
+
+        JButton startButton = new JButton("Continue");
+        startButton.setBounds(300, 350, 200, 100);
+        frame.add(startButton);
+
+        frame.setVisible(true);
+    }
+    
     MemoryCard[][] InitGrid (int r, int c) {
         MemoryCard[][] CardGrid = new MemoryCard[r][c];
         for (int i = 0; i < r; i++) {
