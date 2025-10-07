@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "GFG",
+            "request": "launch",
+            "mainClass": "GFG",
+            "projectName": "memory_programming_747faf1c"
+        },
+        {
             "type": "jdk",
             "request": "launch",
             "name": "Launch Java App"
