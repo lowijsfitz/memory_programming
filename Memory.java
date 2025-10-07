@@ -13,7 +13,7 @@ class GFG {
         JFrame frame = new JFrame();
 
         // Creating instance of JButton
-        JButton button = new JButton("Hello");
+        JButton button = new JButton("Lowijs");
 
         // x axis, y axis, width, height
         button.setBounds(150, 200, 220, 50);
