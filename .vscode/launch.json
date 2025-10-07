@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Memory",
+            "request": "launch",
+            "mainClass": "Memory",
+            "projectName": "memory_programming_747faf1c"
+        },
+        {
+            "type": "java",
             "name": "GFG",
             "request": "launch",
             "mainClass": "GFG",

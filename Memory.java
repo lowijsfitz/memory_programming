@@ -6,8 +6,22 @@ import javax.swing.*;
 
 
 class Memory {
-    void Start_game () {
+    void StartGame() {
+        JFrame frame = new JFrame("Memory");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 800);
+        frame.setLayout(null);
+
+        JLabel welcomeLabel = new JLabel("Welcome to Memory!");
+        welcomeLabel.setBounds(340, 50, 120, 50);
+        frame.add(welcomeLabel);
+
+        JButton startButton = new JButton("Start");
+        startButton.setBounds(300, 350, 200, 100);
         
+        frame.add(startButton);
+
+        frame.setVisible(true);
     }
     MemoryCard[][] InitGrid (int r, int c) {
         MemoryCard[][] CardGrid = new MemoryCard[r][c];
@@ -22,6 +36,9 @@ class Memory {
     // Main driver method
     public static void main(String[] args)
     {
+        Memory memoryGame = new Memory();
+        memoryGame.StartGame();
+        /* 
         // Creating instance of JFrame
         JFrame frame = new JFrame();
 
@@ -42,5 +59,6 @@ class Memory {
 
         // making the frame visible
         frame.setVisible(true);
+        */
     }
 }
