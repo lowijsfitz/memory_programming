@@ -1,11 +1,24 @@
 // Java program using label (swing)
 // to display the message “GFG WEB Site Click”
-import java.io.*;
 import javax.swing.*;
 
 // Main class
-class GFG {
 
+
+class Memory {
+    void Start_game () {
+        
+    }
+    MemoryCard[][] InitGrid (int r, int c) {
+        MemoryCard[][] CardGrid = new MemoryCard[r][c];
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                CardGrid[i][j].setIdentifier(1);
+                CardGrid[i][j].setVisible(false);
+            }
+        }
+        return CardGrid;
+    }
     // Main driver method
     public static void main(String[] args)
     {
