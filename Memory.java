@@ -6,8 +6,14 @@ import javax.swing.*;
 
 
 class Memory {
-    void StartGame() {
-        JFrame frame = new JFrame("Memory");
+    // To use the same frame for both, you should update the frame's contents instead of creating a new JFrame each time.
+    // Store the frame as a class field and reuse it.
+
+    JFrame frame;
+    memoryCard[][] gameGrid;
+
+    void startGame() {
+        frame = new JFrame("Memory");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
         frame.setLayout(null);
@@ -18,43 +24,95 @@ class Memory {
 
         JButton startButton = new JButton("Start");
         startButton.setBounds(300, 350, 200, 100);
-        startButton.addActionListener(e -> StartLevel(1));
+        startButton.addActionListener(e -> startLevel(1));
         frame.add(startButton);
 
         frame.setVisible(true);
     }
-    void StartLevel (int level) {
-        JFrame frame = new JFrame("Memory");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 800);
-        frame.setLayout(null);
+
+    void startLevel(int level) {
+        frame.getContentPane().removeAll();
+        frame.repaint();
 
         JLabel welcomeLabel = new JLabel("You are currently at level " + level);
         welcomeLabel.setBounds(325, 50, 150, 50);
         frame.add(welcomeLabel);
 
-        JButton startButton = new JButton("Continue");
-        startButton.setBounds(300, 350, 200, 100);
-        frame.add(startButton);
+        JButton continueButton = new JButton("Continue");
+        continueButton.setBounds(300, 350, 200, 100);
+        continueButton.addActionListener(e -> playLevel(level));
+        frame.add(continueButton);
 
-        frame.setVisible(true);
+        frame.revalidate();
+        frame.repaint();
     }
     
-    MemoryCard[][] InitGrid (int r, int c) {
-        MemoryCard[][] CardGrid = new MemoryCard[r][c];
+    void playLevel (int level) {
+        int[][] rcList = {
+            {2, 2},
+            {2, 4},
+            {4, 4},
+            {4, 5},
+            {5, 6},
+            {6, 6}
+        };
+        
+        frame.getContentPane().removeAll();
+        frame.setLayout(null);
+
+        int r = rcList[level][0];
+        int c = rcList[level][1];
+        int buttonWidth = 100;
+        int buttonHeight = 100;
+        int startX = 50;
+        int startY = 50;
+        int gap = 10;
+        
+        gameGrid = initGrid(r, c);
+        
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
-                CardGrid[i][j].setIdentifier(1);
-                CardGrid[i][j].setVisible(false);
+                int identifier = gameGrid[i][j].getIdentifier();
+                JButton card = new JButton();
+                if (gameGrid[i][j].isVisible()) {
+                    gameGrid[i][j].setText(String.valueOf(identifier));
+                }
+                int x = startX + j * (buttonWidth + gap);
+                int y = startY + i * (buttonHeight + gap);
+                card.setBounds(x, y, buttonWidth, buttonHeight);
+                final int curR = i;
+                final int curC = j;
+                card.addActionListener(e -> gameGrid = cardChosen(curR, curC, r, c));
+                frame.add(card);
             }
         }
-        return CardGrid;
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    
+
+    memoryCard[][] cardChosen(int curR, int curC, int r, int c) {
+        gameGrid[curR][curC].setVisible(true);
+        
+        return gameGrid;
+    }
+    
+    memoryCard[][] initGrid (int r, int c) {
+        memoryCard[][] cardGrid = new memoryCard[r][c];
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                cardGrid[i][j] = new memoryCard("image.png", false, 3);
+            }
+        }
+        return cardGrid;
     }
     // Main driver method
+    
     public static void main(String[] args)
     {
         Memory memoryGame = new Memory();
-        memoryGame.StartGame();
+        memoryGame.startGame();
         /* 
         // Creating instance of JFrame
         JFrame frame = new JFrame();

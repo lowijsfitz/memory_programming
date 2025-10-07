@@ -1,9 +1,11 @@
-public class MemoryCard {
+import javax.swing.JButton;
+
+public class memoryCard extends JButton {
     private String pictureFileName;
     private boolean visible;
     private int identifier;
 
-    public MemoryCard(String pictureFileName, boolean visible, int identifier) {
+    public memoryCard (String pictureFileName, boolean visible, int identifier) {
         this.pictureFileName = pictureFileName;
         this.visible = visible;
         this.identifier = identifier;
