@@ -15,7 +15,7 @@ class Memory {
     boolean firstChosen = true;
     int prevC;
     int prevR;
-    int level = 1;
+    int level = 6;
 
     void startGame() {
         frame = new JFrame("Memory");
@@ -150,6 +150,14 @@ class Memory {
         memoryCard[][] cardGrid = new memoryCard[r][c];
         int numSets = (r * c) / 2;
         // Create an array with pairs of identifiers
+        String[] pictures = new String[] {
+            "apple.png", "bananas.png", "cherries.png", "fruit.png",
+            "grapes.png", "lemon.png", "orange.png", "pear.png",
+            "pineapple.png", "strawberry.png", "lime.png", "peach.png", 
+            "kiwi.png", "blueberry.png", "raspberry.png", "mango.png",
+            "vegetables_crate.png", "dragonfruit.png"
+        };
+
         int[] identifiers = new int[r * c];
         for (int i = 0; i < numSets; i++) {
             identifiers[2 * i] = i + 1;     // First occurrence
@@ -168,7 +176,8 @@ class Memory {
         int identInd = 0;
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
-                cardGrid[i][j] = new memoryCard("image.png", false, identifiers[identInd++]);
+                int curIdent = identifiers[identInd++];
+                cardGrid[i][j] = new memoryCard(pictures[curIdent - 1], false, curIdent);
             }
         }
         return cardGrid;
