@@ -107,13 +107,17 @@ class Memory {
         } else if (gameGrid[curR][curC].getIdentifier() == gameGrid[prevR][prevC].getIdentifier()) {
             firstChosen = true;
         } else {
-            gameGrid[prevR][prevC].setRevealed(false);
-            gameGrid[curR][curC].setRevealed(false);
+            frame.setEnabled(false);
+            Timer timer = new Timer(1000, e -> {
+                gameGrid[prevR][prevC].setRevealed(false);
+                gameGrid[curR][curC].setRevealed(false);
+                frame.setEnabled(true);
+            
+            });
+            timer.setRepeats(false);
+            timer.start();
             firstChosen = true;
         }
-        
-        
-        return;
     }
     
     memoryCard[][] initGrid (int r, int c) {
@@ -145,31 +149,8 @@ class Memory {
     }
     // Main driver method
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Memory memoryGame = new Memory();
         memoryGame.startGame();
-        /* 
-        // Creating instance of JFrame
-        JFrame frame = new JFrame();
-
-        // Creating instance of JButton
-        JButton button = new JButton("Nu echt doen en ik ook");
-
-        // x axis, y axis, width, height
-        button.setBounds(150, 200, 220, 50);
-
-        // adding button in JFrame
-        frame.add(button);
-
-        // 400 width and 500 height
-        frame.setSize(500, 600);
-
-        // using no layout managers
-        frame.setLayout(null);
-
-        // making the frame visible
-        frame.setVisible(true);
-        */
     }
 }
