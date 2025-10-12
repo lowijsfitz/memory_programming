@@ -11,6 +11,9 @@ class Memory {
 
     JFrame frame;
     memoryCard[][] gameGrid;
+    boolean firstChosen = true;
+    int prevC;
+    int prevR;
 
     void startGame() {
         frame = new JFrame("Memory");
@@ -72,30 +75,39 @@ class Memory {
         
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
-                int identifier = gameGrid[i][j].getIdentifier();
-                JButton card = new JButton();
-                if (gameGrid[i][j].isVisible()) {
-                    gameGrid[i][j].setText(String.valueOf(identifier));
-                }
+                memoryCard card = gameGrid[i][j];
                 int x = startX + j * (buttonWidth + gap);
                 int y = startY + i * (buttonHeight + gap);
                 card.setBounds(x, y, buttonWidth, buttonHeight);
                 final int curR = i;
                 final int curC = j;
-                card.addActionListener(e -> gameGrid = cardChosen(curR, curC, r, c));
+                card.addActionListener(e -> cardChosen(curR, curC, r, c));
                 frame.add(card);
             }
         }
         frame.revalidate();
         frame.repaint();
+        
     }
 
     
 
-    memoryCard[][] cardChosen(int curR, int curC, int r, int c) {
-        gameGrid[curR][curC].setVisible(true);
+    void cardChosen(int curR, int curC, int r, int c) {
+        if (gameGrid[curR][curC].isRevealed()){
+            System.out.println("already chosen");
+            return;
+        }
+        gameGrid[curR][curC].setRevealed(true);
+        if (firstChosen) {
+            prevC = curC;
+            prevR = curR;
+            firstChosen = false;
+        } else {
+            firstChosen = true;
+        }
         
-        return gameGrid;
+        
+        return;
     }
     
     memoryCard[][] initGrid (int r, int c) {
