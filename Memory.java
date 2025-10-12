@@ -1,5 +1,6 @@
 // Java program using label (swing)
 // to display the message “GFG WEB Site Click”
+import java.util.Random;
 import javax.swing.*;
 
 // Main class
@@ -98,11 +99,16 @@ class Memory {
             return;
         }
         gameGrid[curR][curC].setRevealed(true);
+        frame.repaint();
         if (firstChosen) {
             prevC = curC;
             prevR = curR;
             firstChosen = false;
+        } else if (gameGrid[curR][curC].getIdentifier() == gameGrid[prevR][prevC].getIdentifier()) {
+            firstChosen = true;
         } else {
+            gameGrid[prevR][prevC].setRevealed(false);
+            gameGrid[curR][curC].setRevealed(false);
             firstChosen = true;
         }
         
@@ -112,9 +118,27 @@ class Memory {
     
     memoryCard[][] initGrid (int r, int c) {
         memoryCard[][] cardGrid = new memoryCard[r][c];
+        int numSets = (r * c) / 2;
+        // Create an array with pairs of identifiers
+        int[] identifiers = new int[r * c];
+        for (int i = 0; i < numSets; i++) {
+            identifiers[2 * i] = i + 1;     // First occurrence
+            identifiers[2 * i + 1] = i + 1; // Second occurrence
+        }
+
+        // Shuffle the identifiers array
+        Random random = new Random();
+        for (int i = identifiers.length - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+            // Swap identifiers[i] and identifiers[j]
+            int temp = identifiers[i];
+            identifiers[i] = identifiers[j];
+            identifiers[j] = temp;
+        }
+        int identInd = 0;
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
-                cardGrid[i][j] = new memoryCard("image.png", false, 3);
+                cardGrid[i][j] = new memoryCard("image.png", false, identifiers[identInd++]);
             }
         }
         return cardGrid;
