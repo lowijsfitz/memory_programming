@@ -15,6 +15,7 @@ class Memory {
     boolean firstChosen = true;
     int prevC;
     int prevR;
+    int level = 1;
 
     void startGame() {
         frame = new JFrame("Memory");
@@ -28,13 +29,26 @@ class Memory {
 
         JButton startButton = new JButton("Start");
         startButton.setBounds(300, 350, 200, 100);
-        startButton.addActionListener(e -> startLevel(1));
+        startButton.addActionListener(e -> startLevel());
         frame.add(startButton);
 
         frame.setVisible(true);
     }
 
-    void startLevel(int level) {
+    void allDone() {
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        JLabel finalLabel = new JLabel("Congragiulations, you have completed all levels!");
+        finalLabel.setBounds(325, 50, 300, 50);
+        frame.add(finalLabel);
+
+    }
+
+    void startLevel() {
+        if (level > 6) {
+            allDone();
+            return;
+        }
         frame.getContentPane().removeAll();
         frame.repaint();
 
@@ -44,14 +58,14 @@ class Memory {
 
         JButton continueButton = new JButton("Continue");
         continueButton.setBounds(300, 350, 200, 100);
-        continueButton.addActionListener(e -> playLevel(level));
+        continueButton.addActionListener(e -> playLevel());
         frame.add(continueButton);
 
         frame.revalidate();
         frame.repaint();
     }
     
-    void playLevel (int level) {
+    void playLevel () {
         int[][] rcList = {
             {2, 2},
             {2, 4},
@@ -64,8 +78,8 @@ class Memory {
         frame.getContentPane().removeAll();
         frame.setLayout(null);
 
-        int r = rcList[level][0];
-        int c = rcList[level][1];
+        int r = rcList[level - 1][0];
+        int c = rcList[level - 1][1];
         int buttonWidth = 100;
         int buttonHeight = 100;
         int startX = 50;
@@ -94,7 +108,7 @@ class Memory {
     
 
     void cardChosen(int curR, int curC, int r, int c) {
-        if (gameGrid[curR][curC].isRevealed()){
+        if (gameGrid[curR][curC].isRevealed()) {
             System.out.println("already chosen");
             return;
         }
@@ -117,6 +131,18 @@ class Memory {
             timer.setRepeats(false);
             timer.start();
             firstChosen = true;
+        }
+        boolean checkIncomplete = false;
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                if (!gameGrid[i][j].isRevealed()) {
+                    checkIncomplete = true;
+                }
+            }
+        }
+        if (!checkIncomplete) {
+            level++;
+            startLevel();
         }
     }
     
