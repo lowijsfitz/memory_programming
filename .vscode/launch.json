@@ -9,6 +9,13 @@
             "name": "Memory",
             "request": "launch",
             "mainClass": "Memory",
+            "projectName": "memory_programming_be690c6c"
+        },
+        {
+            "type": "java",
+            "name": "Memory",
+            "request": "launch",
+            "mainClass": "Memory",
             "projectName": "memory_programming_747faf1c"
         },
         {

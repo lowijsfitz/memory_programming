@@ -38,8 +38,8 @@ class Memory {
     void allDone() {
         frame.getContentPane().removeAll();
         frame.repaint();
-        JLabel finalLabel = new JLabel("Congragiulations, you have completed all levels!");
-        finalLabel.setBounds(325, 50, 300, 50);
+        JLabel finalLabel = new JLabel("Congratiulations, you have completed all levels!");
+        finalLabel.setBounds(325, 350, 300, 50);
         frame.add(finalLabel);
 
     }
@@ -53,7 +53,7 @@ class Memory {
         frame.repaint();
 
         JLabel welcomeLabel = new JLabel("You are currently at level " + level);
-        welcomeLabel.setBounds(325, 50, 150, 50);
+        welcomeLabel.setBounds(325, 50, 200, 50);
         frame.add(welcomeLabel);
 
         JButton continueButton = new JButton("Continue");
