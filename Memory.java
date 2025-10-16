@@ -15,7 +15,7 @@ class Memory {
     boolean firstChosen = true;
     int prevC;
     int prevR;
-    int level = 6;
+    int level = 1;
 
     void startGame() {
         frame = new JFrame("Memory");
