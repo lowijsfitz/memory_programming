@@ -43,15 +43,17 @@ public class memoryCard extends JButton {
 
     // Update the button's appearance based on visibility
     private void updateAppearance() {
+        ImageIcon icon;
         if (revealed) {
             //setText(String.valueOf(identifier));
             // Optionally set an icon using pictureFileName
-            ImageIcon icon = new ImageIcon(pictureFileName);
-            Image scaledImage = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-            setIcon(new ImageIcon(scaledImage));
+            icon = new ImageIcon(pictureFileName);
+            
         } else {
             setText(""); // Hide identifier when not visible
-            setIcon(null);
+            icon = new ImageIcon("back.png");
         }
+        Image scaledImage = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        setIcon(new ImageIcon(scaledImage));
     }
 }
